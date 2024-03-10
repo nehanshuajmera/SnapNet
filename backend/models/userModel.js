@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import validator from "validator";
 import bcrypt from "bcrypt";
+import { Follow } from "./followModel.js";
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -40,6 +41,10 @@ const userSchema = new Schema({
         type: String,
         default: "",
     },
+    verified: {
+        type: Boolean,
+        default: false,
+    },
     createdAt: {
         type: Date,
         default: new Date(),
@@ -68,6 +73,37 @@ const userSchema = new Schema({
     ],
 });
 
+// Define the method to update the "verified" status
+userSchema.methods.updateVerifiedStatus = async function () {
+    const followersCount = await mongoose
+        .model("Follow")
+        .countDocuments({ followingId: this._id });
+    if (followersCount > 20 && !this.verified) {
+        this.verified = true;
+        await this.save();
+    } else if (followersCount <= 20 && this.verified) {
+        this.verified = false;
+        await this.save();
+    }
+};
+
+// Set up Mongoose middleware to update "verified" status when a follow is saved
+Follow.schema.post('save', async function () {
+    const user = await User.findById(this.followingId);
+    if (user) {
+        await user.updateVerifiedStatus();
+    }
+});
+
+// Set up Mongoose middleware to update "verified" status when a follow is removed
+Follow.schema.post('remove', async function () {
+    const user = await User.findById(this.followingId);
+    if (user) {
+        await user.updateVerifiedStatus();
+    }
+});
+
+// User SignUp and Login methods
 userSchema.statics.signup = async function (
     username,
     email,
@@ -124,6 +160,11 @@ userSchema.statics.signup = async function (
         throw new Error("Phone number already exists");
     }
 
+    const validNo = phoneNumber[0];
+    if (validNo !== "9" && validNo !== "8" && validNo !== "7" && validNo !== "6") {
+        throw new Error("Invalid phone number");
+    }
+
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
     const confirmPasswordHash = await bcrypt.hash(confirmPassword, salt);
@@ -141,7 +182,7 @@ userSchema.statics.signup = async function (
     return user;
 };
 
-userSchema.statics.login = async function ({ usernameOrEmail, password }) {
+userSchema.statics.login = async function ( usernameOrEmail, password ) {
     if (!usernameOrEmail || !password) {
         throw new Error("Please fill in all the fields");
     }
@@ -150,12 +191,12 @@ userSchema.statics.login = async function ({ usernameOrEmail, password }) {
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     });
     if (!user) {
-        throw new Error("User does not exist");
+        throw new Error("Invalid Credentials");
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        throw new Error("Invalid credentials");
+        throw new Error("Incorrect password");
     }
 
     return user;
