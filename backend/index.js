@@ -1,18 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import {config} from dotenv;
+import {config} from 'dotenv';
 config();
 
 const app = express();
+
+// Import Routes
 
 app.use(express.json());
 app.use(cors());
 
 const PORT = process.env.PORT;
 
+// Routes
+
 const connect = async () => {
-    mongoose.connect(process.env.DB_URL);
+    await mongoose.connect(process.env.DB_URL);
     try{
         console.log('Connected to Database');
 
@@ -27,3 +31,8 @@ const connect = async () => {
 }
 
 connect();
+
+// Error Handling
+app.use = (err, req, res, next) => {
+    res.status(500).send({message: err.message});
+};
