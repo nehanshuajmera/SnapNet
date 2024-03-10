@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
@@ -30,6 +29,13 @@ export const signup = async (req, res) => {
         );
 
         const token = createToken(user._id);
+
+        // Set the cookie
+        res.cookie("authToken", token, {
+            httpOnly: true,
+            maxAge: 3 * 24 * 60 * 60 * 1000, // Expires in 3 days
+        });
+
         res.status(201).json({ user: user.username, token });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -41,6 +47,13 @@ export const login = async (req, res) => {
         const { usernameOrEmail, password } = req.body;
         const user = await User.login(usernameOrEmail, password);
         const token = createToken(user._id);
+
+        // Set the token in the cookie
+        res.cookie("authToken", token, {
+            httpOnly: true,
+            maxAge: 3 * 24 * 60 * 60 * 1000, // Expires in 3 days
+        });
+
         res.status(200).json({ user: user.username, token });
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -59,9 +72,6 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params;
     try {
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ message: "User not found" });
-        }
         const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -76,9 +86,6 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     try {
         const { username, email, phoneNumber, bio, profileImage } = req.body;
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ message: "User not found" });
-        }
         const user = await User.findByIdAndUpdate(
             id,
             { username, email, phoneNumber, bio, profileImage },
@@ -96,10 +103,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        const user = await User.findByIdAndRemove(id);
+        const user = await User.findByIdAndDelete(id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
