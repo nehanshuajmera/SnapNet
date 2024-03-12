@@ -62,13 +62,11 @@ const userSchema = new Schema({
     followers: [
         {
             type: String,
-            ref: "Follow",
         },
     ],
     following: [
         {
             type: String,
-            ref: "Follow",
         },
     ],
 });
