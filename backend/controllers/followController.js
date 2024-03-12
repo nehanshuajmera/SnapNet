@@ -2,26 +2,26 @@ import { Follow } from "../models/followModel.js"
 import { User } from "../models/userModel.js"
 
 export const getFollowAndFollowing = async (req, res) => {
-    const { id } = req.body
+    const userId = req.user._id;
     try {
-        const getOne = await Follow.findById(id);
-        if (!getOne) {
-            res.status(404).json({ message: "Not found" })
-        }
-        res.status(200).json(getOne);
-    }
-    catch (err) {
-        res.status(500).json({ message: err.message })
+        const userFollows = await Follow.find({ followerId: userId });
+        const userFollowers = await Follow.find({ followingId: userId });
+
+        res.status(200).json({ following: userFollows, followers: userFollowers });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
 export const getAllFollowersAndFollowings = async (req, res) => {
+    const userId = req.user._id;
     try {
-        const getAll = await Follow.find();
-        res.status(200).json(getAll);
-    }
-    catch (err) {
-        res.status(500).json({ message: err.message })
+        const userFollowing = await Follow.find({ followerId: userId });
+        const userFollowers = await Follow.find({ followingId: userId });
+
+        res.status(200).json({ following: userFollowing, followers: userFollowers });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 };
 
