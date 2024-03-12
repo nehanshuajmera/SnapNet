@@ -13,12 +13,14 @@ app.use(cookieParser());
 // Import Routes
 import { userRoutes } from './routes/userRoute.js';
 import { followRoutes } from './routes/followRoute.js';
+import { postRoutes } from './routes/postRoute.js';
 
 const PORT = process.env.PORT;
 
 // Routes
 app.use('/api/user', userRoutes);
 app.use('/api/user', followRoutes);
+app.use('/api/post', postRoutes);
 
 const connect = async () => {
     await mongoose.connect(process.env.DB_URL);

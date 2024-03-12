@@ -5,7 +5,6 @@ const postSchema = new Schema({
     userId: {
         type: String,
         required: true,
-        ref: 'User',
     },
     postContent: {
         type: String,

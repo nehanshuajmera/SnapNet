@@ -77,7 +77,7 @@ export const unFollow = async (req, res) => {
             await followingExist.save();
         }
 
-        res.status(200).json(unFollow);
+        res.status(200).json({ message: 'Unfollowed successfully' });
     }
     catch (err) {
         res.status(500).json({ message: err.message })
