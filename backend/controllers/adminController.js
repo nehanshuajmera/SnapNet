@@ -1,8 +1,8 @@
 import { Admin } from "../models/adminModel.js";
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
-const createToken = () => {
-    return jwt.sign({ id: Admin._id, role: "admin" }, process.env.JWT_SECRET, {
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: "3d",
     });
 };
@@ -10,7 +10,12 @@ const createToken = () => {
 export const signup = async (req, res) => {
     try {
         const { username, email, password, confirmPassword } = req.body;
-        const admin = await Admin.signup(username, email, password, confirmPassword);
+        const admin = await Admin.signup(
+            username,
+            email,
+            password,
+            confirmPassword
+        );
 
         const token = createToken(admin._id);
 
@@ -45,14 +50,13 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-    try{
+    try {
         res.cookie("authToken", "", {
             httpOnly: true,
-            expires: new Date(0)
+            expires: new Date(0),
         });
         res.status(200).json({ message: "Logged out successfully" });
-    }
-    catch (error) {
+    } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
@@ -70,10 +74,15 @@ export const updateAdmin = async (req, res) => {
     const { id } = req.params;
     const { username, email, password, confirmPassword } = req.body;
     try {
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No admin with that id');
+        if (!mongoose.Types.ObjectId.isValid(id))
+            return res.status(404).send("No admin with that id");
 
-        const updatedAdmin = await Admin.findByIdAndUpdate(id, { username, email, password, confirmPassword }, { new: true });
-        if (!updatedAdmin) return res.status(404).send('No admin with that id');
+        const updatedAdmin = await Admin.findByIdAndUpdate(
+            id,
+            { username, email, password, confirmPassword },
+            { new: true }
+        );
+        if (!updatedAdmin) return res.status(404).send("No admin with that id");
 
         res.status(200).json(updatedAdmin);
     } catch (error) {
@@ -85,7 +94,7 @@ export const deleteAdmin = async (req, res) => {
     const { id } = req.params;
     try {
         await Admin.findByIdAndRemove(id);
-        res.status(200).json({ message: 'Admin deleted successfully' });
+        res.status(200).json({ message: "Admin deleted successfully" });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

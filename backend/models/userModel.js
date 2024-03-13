@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 import validator from "validator";
 import bcrypt from "bcrypt";
-import { Follow } from "./followModel.js";
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -189,17 +189,3 @@ userSchema.statics.login = async function (usernameOrEmail, password) {
 };
 
 export const User = mongoose.model("User", userSchema);
-
-// to update many documents in the collection
-// const updateDocuments = async () => {
-//     try {
-//         const updateResult = await User.updateMany({}, { $set: { role: 'user' } });
-//         console.log(`${updateResult.nModified} documents updated`);
-//     } catch (error) {
-//         console.error(error);
-//     } finally {
-//         mongoose.connection.close();
-//     }
-// };
-
-// updateDocuments();
