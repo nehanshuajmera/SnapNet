@@ -27,10 +27,10 @@ const adminSchema = new Schema(
             type: String,
             required: true,
         },
-        adminRole: {
+        role: {
             type: String,
-            enum: ["superadmin", "admin"],
             default: "admin",
+            enum: ["admin"],
         },
     },
     { timestamps: true }
@@ -40,14 +40,10 @@ adminSchema.statics.signup = async function (
     username,
     email,
     password,
-    confirmPassword,
-    adminRole
+    confirmPassword
 ) {
-    if (!username || !email || !password || !confirmPassword || !adminRole) {
+    if (!username || !email || !password || !confirmPassword) {
         throw new Error("Please fill in all fields");
-    }
-    if (!["superadmin", "admin"].includes(adminRole)) {
-        throw new Error("Invalid admin role");
     }
     if (!validator.isEmail(email)) {
         throw new Error("Invalid email");
@@ -84,8 +80,7 @@ adminSchema.statics.signup = async function (
         username,
         email,
         password,
-        confirmPassword,
-        adminRole,
+        confirmPassword
     });
     return admin;
 };

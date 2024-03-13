@@ -1,5 +1,6 @@
-import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import { User } from "../models/userModel.js";
+import { follow } from "./followController.js";
 
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -25,10 +26,19 @@ export const signup = async (req, res) => {
             confirmPassword,
             phoneNumber,
             bio,
-            profileImage
+            profileImage,
         );
 
-        const token = createToken(user._id);
+        let { followers, verified } = user;
+
+        // when user first signs up, they are not verified
+        verified = false;
+
+        if(followers.length > 20 && verified === false) {
+            verified = true;
+        }
+
+        const token = createToken(user._id, "user");
 
         // Set the cookie
         res.cookie("authToken", token, {
@@ -46,7 +56,7 @@ export const login = async (req, res) => {
     try {
         const { usernameOrEmail, password } = req.body;
         const user = await User.login(usernameOrEmail, password);
-        const token = createToken(user._id);
+        const token = createToken(user._id, "user");
 
         // Set the token in the cookie
         res.cookie("authToken", token, {
@@ -55,6 +65,15 @@ export const login = async (req, res) => {
         });
 
         res.status(200).json({ user: user.username, token });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+export const logout = async (req, res) => {
+    try {
+        res.clearCookie("authToken");
+        res.status(200).json({ message: "Logged out" });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -86,15 +105,28 @@ export const updateUser = async (req, res) => {
     const { id } = req.params;
     try {
         const { username, email, phoneNumber, bio, profileImage } = req.body;
-        const user = await User.findByIdAndUpdate(
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Check if the user is the owner or an admin
+        if (
+            user._id.toString() !== req.user._id.toString() &&
+            req.user.role !== "admin"
+        ) {
+            return res
+                .status(403)
+                .json({ message: "You are not authorized to update this user" });
+        }
+
+        // Update the user
+        const updatedUser = await User.findByIdAndUpdate(
             id,
             { username, email, phoneNumber, bio, profileImage },
             { new: true }
         );
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-        res.status(200).json(user);
+        res.status(200).json(updatedUser);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -103,10 +135,23 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findByIdAndDelete(id);
+        const user = await User.findById(id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+
+        // Check if the user is the owner or an admin
+        if (
+            user._id.toString() !== req.user._id.toString() &&
+            req.user.role !== "admin"
+        ) {
+            return res
+                .status(403)
+                .json({ message: "You are not authorized to delete this user" });
+        }
+
+        // Delete the user
+        await User.findByIdAndDelete(id);
         res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
         res.status(404).json({ message: error.message });
