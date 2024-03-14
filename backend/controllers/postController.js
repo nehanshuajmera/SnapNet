@@ -27,7 +27,7 @@ export const createPost = async (req, res) => {
 // Get all posts
 export const getPosts = async (req, res) => {
     const { userId } = req.params;
-    const currentUser = req.user._id;
+    const currentUser = req.user && req.user._id;
     try {
         let posts = [];
 
@@ -36,7 +36,8 @@ export const getPosts = async (req, res) => {
             const user = await User.findById(currentUser);
             if (!user) return res.status(404).json({ message: 'User not found' });
 
-            posts = await Post.find({ userId: { $in: user.following } }).sort({ createdAt: -1 });
+            const usersToQuery = [currentUser, ...user.following];
+            posts = await Post.find({ userId: { $in: usersToQuery } }).sort({ createdAt: -1 });
         }
         // If userId is provided, get all posts from the user with the provided userId 
         else {
