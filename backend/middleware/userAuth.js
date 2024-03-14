@@ -4,7 +4,9 @@ import { User } from "../models/userModel.js";
 export const userAuth = async (req, res, next) => {
     try {
         const token =
-            req.cookies.token || req.header("Authorization").split(" ")[1];
+            req.cookies.token ||
+            (req.header("Authorization") &&
+                req.header("Authorization").split(" ")[1]);
         if (!token) return res.status(401).json({ errorMessage: "Unauthorized" });
 
         const verified = jwt.verify(token, process.env.JWT_SECRET);

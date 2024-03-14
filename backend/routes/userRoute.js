@@ -9,6 +9,7 @@ import {
     getUser,
     updateUser,
     deleteUser,
+    getFollowers
 } from "../controllers/userController.js";
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.get("/logout", userAuth, logout);
 router.get("/:id", userAuth, getUser);
 router.patch("/:id", userAuth, updateUser);
 router.delete("/:id", userAuth, deleteUser);
+router.get("/followers", userAuth, getFollowers);
 
 export const userRoutes = router;

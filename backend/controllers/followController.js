@@ -1,32 +1,6 @@
 import { Follow } from "../models/followModel.js";
 import { User } from "../models/userModel.js";
 
-export const getFollowAndFollowing = async (req, res) => {
-    const userId = req.user._id;
-    try {
-        const userFollows = await Follow.find({ followerId: userId });
-        const userFollowers = await Follow.find({ followingId: userId });
-
-        res.status(200).json({ following: userFollows, followers: userFollowers });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
-export const getAllFollowersAndFollowings = async (req, res) => {
-    const userId = req.user._id;
-    try {
-        const userFollowing = await Follow.find({ followerId: userId });
-        const userFollowers = await Follow.find({ followingId: userId });
-
-        res
-            .status(200)
-            .json({ following: userFollowing, followers: userFollowers });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
-
 // Follow a user
 export const follow = async (req, res) => {
     const { id: followingId } = req.params;

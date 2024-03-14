@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
-import { follow } from "./followController.js";
 
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -157,3 +156,15 @@ export const deleteUser = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
+
+export const getFollowers = async (req, res) =>{
+    const userId = req.user._id;
+    try{
+        const user = await User.findById(userId);
+        console.log(user);
+    }
+    catch(err){
+        console.error({err: err})
+        res.status(404).json({message: err.message});
+    }
+}
