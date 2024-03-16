@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "09fe14b3-bdd0-43f1-b6b0-771607b75a2f",
+		"name": "Snap Net",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28977247"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/user/allusers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNlZTYwZDVhLWE3NjctNDg2MC04MjY2LWFiODIyNjQxZGE0MiIsImlhdCI6MTcxMDEwNjAwMCwiZXhwIjoxNzEwMzY1MjAwfQ.p1RZeafBI-d_zlleJHqLrzAAwwOQtxf-jZyGbw_kDNk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/user/allusers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"allusers"
+					]
+				},
+				"description": "Get all the users -- REST API for admin to all users"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"heyy.anu\",\r\n    \"email\": \"heyy.anu@gmail.com\",\r\n    \"password\": \"Dasha@21\",\r\n    \"confirmPassword\": \"Dasha@21\",\r\n    \"phoneNumber\": \"8201208897\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"signup"
+					]
+				},
+				"description": "SignUp user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usernameOrEmail\": \"sonambanjwa@gmail.com\",\r\n    \"password\": \"Dasha@21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				},
+				"description": "User Login"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/cee60d5a-a767-4860-8266-ab822641da42",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3ZDZkYTQ0LWQzZTAtNGFjZS05ZjQ4LTUwZGY1YTJlNjU1NCIsImlhdCI6MTcxMDMxNDM1NCwiZXhwIjoxNzEwNTczNTU0fQ.iJnk20qzX0DMsL9J3eJLWnAX8XHQ4DKP6nmP4cVkS-g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/user/e01a0b4c-f43f-4369-bae2-95d17998b381",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"e01a0b4c-f43f-4369-bae2-95d17998b381"
+					]
+				},
+				"description": "Get a single User"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/cee60d5a-a767-4860-8266-ab822641da42",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3ZDZkYTQ0LWQzZTAtNGFjZS05ZjQ4LTUwZGY1YTJlNjU1NCIsImlhdCI6MTcxMDMxNDM1NCwiZXhwIjoxNzEwNTczNTU0fQ.iJnk20qzX0DMsL9J3eJLWnAX8XHQ4DKP6nmP4cVkS-g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"phoneNumber\": \"9999128812\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/37d6da44-d3e0-4ace-9f48-50df5a2e6554",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"37d6da44-d3e0-4ace-9f48-50df5a2e6554"
+					]
+				},
+				"description": "Update User Info"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/53492817-f9c9-48d4-98d2-4ddc996f2efb",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhmZDBkODg2LTViNDktNGYzYS1hMzQxLTA5NmIyODI5ZWJjNyIsImlhdCI6MTcxMDMxNDYxOCwiZXhwIjoxNzEwNTczODE4fQ.xzL9BPiHeeAwJGP9X-DLGT0BIdhaFzZ6uDA7huRDCQE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/8fd0d886-5b49-4f3a-a341-096b2829ebc7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"8fd0d886-5b49-4f3a-a341-096b2829ebc7"
+					]
+				},
+				"description": "Delete user permanently"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/follow/a215d08b-1dc6-4c8a-8492-35f4e1eda572",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM1NThkMDdjLWJhODktNDAzOC1hZjlhLTdiZDMyZTFlOTc4NyIsImlhdCI6MTcxMDI1ODM4MCwiZXhwIjoxNzEwNTE3NTgwfQ.QyAlvHJHfjqO8dnWmejFEkbWNSbGy6GK8LFq3MbBIRY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNlZGE5MGEyLWFlYTctNDZjYi1hOTU3LWNmN2U3ZDIxMzI3YyIsImlhdCI6MTcxMDE4MDk4MywiZXhwIjoxNzEwNDQwMTgzfQ.Z3YBr9i4wDl9XQn_h6u3z7imLpFpg-Cv3wPfG5ePqMc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/follow/a215d08b-1dc6-4c8a-8492-35f4e1eda572",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"follow",
+						"a215d08b-1dc6-4c8a-8492-35f4e1eda572"
+					]
+				},
+				"description": "Following a User"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/user/unfollow/a215d08b-1dc6-4c8a-8492-35f4e1eda572",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM1NThkMDdjLWJhODktNDAzOC1hZjlhLTdiZDMyZTFlOTc4NyIsImlhdCI6MTcxMDI1OTQwOSwiZXhwIjoxNzEwNTE4NjA5fQ.R2qJNR0db7gOwUOVdNSBYW1LeoaEu4Hgil9pBr-UpsA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/user/unfollow/a215d08b-1dc6-4c8a-8492-35f4e1eda572",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"unfollow",
+						"a215d08b-1dc6-4c8a-8492-35f4e1eda572"
+					]
+				},
+				"description": "Unfollow a user "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/admin/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"superadmin\",\r\n    \"email\": \"superadmin@admin.com\",\r\n    \"password\": \"Dasha@21\",\r\n    \"confirmPassword\": \"Dasha@21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"signup"
+					]
+				},
+				"description": "Admin Signup"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/admin/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usernameOrEmail\": \"superadmin\",\r\n    \"password\": \"Dasha@21\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/admin/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"login"
+					]
+				},
+				"description": "Admin Login"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/post/",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjFjNzUyLWFiMDgtNGFhYS1hOTFkLTEwOTIzYWU0YWUyMSIsImlhdCI6MTcxMDQxNTIyOSwiZXhwIjoxNzEwNjc0NDI5fQ.xxGpDienigcHhXA9ombq9gptxA7ZsqLFFQC9bMqryhQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/post/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"post",
+						""
+					]
+				},
+				"description": "Get all posts"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/post/create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjFjNzUyLWFiMDgtNGFhYS1hOTFkLTEwOTIzYWU0YWUyMSIsImlhdCI6MTcxMDQxNTIyOSwiZXhwIjoxNzEwNjc0NDI5fQ.xxGpDienigcHhXA9ombq9gptxA7ZsqLFFQC9bMqryhQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"postContent\": \"Hello guys, this the official Snap Net account of Your fav Heyy.Anu\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/post/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"post",
+						"create"
+					]
+				},
+				"description": "Create Posts"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/post/65f2de0d093b0ee91e204184",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NDk3N2FiLThjMTEtNDYxYy04MTg1LTUwNDVlODM1NTIxYyIsImlhdCI6MTcxMDQyMDMwNSwiZXhwIjoxNzEwNjc5NTA1fQ.ZQMt3ID4TVKoI0euIA_2Wsmk1RDNzEs0IdnCDyGVRUM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/post/65f2de0d093b0ee91e204184",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"post",
+						"65f2de0d093b0ee91e204184"
+					]
+				},
+				"description": "Get a single post"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/post/65f2f20205a3991a7ebbda64",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0NDk3N2FiLThjMTEtNDYxYy04MTg1LTUwNDVlODM1NTIxYyIsImlhdCI6MTcxMDQyMDMwNSwiZXhwIjoxNzEwNjc5NTA1fQ.ZQMt3ID4TVKoI0euIA_2Wsmk1RDNzEs0IdnCDyGVRUM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"postContent\": \"good evening guys\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/post/65f2f20205a3991a7ebbda64",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"post",
+						"65f2f20205a3991a7ebbda64"
+					]
+				},
+				"description": "Update post"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/post/65f2f20205a3991a7ebbda64",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjFjNzUyLWFiMDgtNGFhYS1hOTFkLTEwOTIzYWU0YWUyMSIsImlhdCI6MTcxMDQyMTc1NiwiZXhwIjoxNzEwNjgwOTU2fQ.XENKEa23KOHaL3uutYiCTGleYYvDRiqnoOqxasHFc50",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/post/65f2f20205a3991a7ebbda64",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"post",
+						"65f2f20205a3991a7ebbda64"
+					]
+				},
+				"description": "Delete Post by ID"
+			},
+			"response": []
+		}
+	]
+}
